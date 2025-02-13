@@ -2,8 +2,9 @@ function replaceAds() {
   const adSelectors = [
     "iframe[src^='ads']",
     "div[id*='-ad-']",
-    "div[class*=' ad']",
-    "div[class*='-ad']",
+    "div[class*=' ad ']",
+    "div[class$='-ad']",
+    "div[class*='-ad-']",
     // "div[class^='ad']",
     "div[class$=' ad']",
     "div[class$=' ad ']",
@@ -29,10 +30,14 @@ function replaceAds() {
   // console.log(ads);
 
   ads.forEach(ad => {
-    let replacement = document.createElement("img");
-    replacement.src = chrome.runtime.getURL('images/timeIsSword.jpg');
-    replacement.style.width = ad.clientWidth + "px";
-    replacement.style.height = ad.clientHeight + "px";
+
+    const replacement = contentGenerator(ad);
+
+    // let replacement = document.createElement("img");
+    // replacement.src = chrome.runtime.getURL('images/timeIsSword.jpg');
+    // chrome.runtime.getURL('images/my-image.png');
+    // replacement.style.width = ad.clientWidth + "px";
+    // replacement.style.height = ad.clientHeight + "px";
     // replacement.style.minHeight = "10px";
     // replacement.style.objectFit = "cover";
     // replacement.style.border = "2px solid #ddd";
@@ -59,6 +64,74 @@ window.addEventListener("load", replaceAds);
 function print_ads(ads) {
   ads.forEach(ad => { console.log(ad) });
 }
+
+
+
+// Function to generate content dynamically
+function contentGenerator(adElement) {
+  // const { width, height } = adElement.getBoundingClientRect();
+  const width = adElement.clientWidth;
+  const height = adElement.clientHeight;
+
+  if (width > 100 && height > 100) {
+    // Large slot → Image replacement
+    return generateImage(adElement, width, height);
+  } else {
+    // Small slot → Text replacement
+    return generateText(adElement);
+  }
+}
+
+// Function to replace an ad with an image
+function generateImage(adElement, width, height) {
+  const img = document.createElement("img");
+  img.src = getRandomImageURL(width, height);
+  img.style.width = `${width}px`;
+  img.style.height = `${height}px`;
+  img.style.borderRadius = "5px";
+  img.style.objectFit = "cover";
+
+  return img;
+}
+
+// Function to replace an ad with text
+function generateText(adElement) {
+  const textContainer = document.createElement("div");
+  textContainer.innerText = getRandomQuote();
+  // textContainer.style.padding = "5px";
+  textContainer.style.margin = "5px";
+  textContainer.style.fontSize = "20px";
+  // textContainer.style.backgroundColor = adElement.style.backgroundColor || "#f3f3f3";
+  const bodyColor = window.getComputedStyle(document.body).color;
+  console.log('bodyColor', bodyColor);
+  textContainer.style.color = bodyColor || "#FFFFFF";
+  textContainer.style.borderRadius = "2px";
+  textContainer.style.textAlign = "center";
+  return textContainer;
+}
+
+// Function to get a random image (dummy function for now)
+function getRandomImageURL(width, height) {
+  return `https://placehold.co/${Math.round(width)}x${Math.round(height)}`;
+}
+
+// Function to get a random motivational quote (dummy function for now)
+function getRandomQuote() {
+  const quotes = [
+    "Believe in yourself!😀",
+    "Stay positive and work hard!",
+    "Success is the sum of small efforts repeated daily.",
+    "Dream big, take action!"
+  ];
+  return quotes[Math.floor(Math.random() * quotes.length)];
+}
+
+// // Run the replacement process on page load
+// window.onload = function () {
+//   const adElements = getAdPlaceholders();
+//   adElements.forEach(contentGenerator);
+// };
+
 // // Monitor dynamically loaded ads
 // const observer = new MutationObserver(replaceAds);
 // observer.observe(document.body, { childList: true, subtree: true });

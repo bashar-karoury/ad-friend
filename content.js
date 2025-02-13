@@ -32,18 +32,10 @@ function replaceAds() {
   ads.forEach(ad => {
 
     const replacement = contentGenerator(ad);
-
-    // let replacement = document.createElement("img");
-    // replacement.src = chrome.runtime.getURL('images/timeIsSword.jpg');
-    // chrome.runtime.getURL('images/my-image.png');
-    // replacement.style.width = ad.clientWidth + "px";
-    // replacement.style.height = ad.clientHeight + "px";
-    // replacement.style.minHeight = "10px";
-    // replacement.style.objectFit = "cover";
-    // replacement.style.border = "2px solid #ddd";
-    // replacement.innerText = "Your Ad-Friend Content Here";
-
     ad.innerHTML = '';
+    ad.style.display = 'flex';
+    ad.style.justifyContent = 'center';
+    ad.style.alignItems = 'center';
     ad.appendChild(replacement);
   });
 }
@@ -98,13 +90,11 @@ function generateImage(adElement, width, height) {
 function generateText(adElement) {
   const textContainer = document.createElement("div");
   textContainer.innerText = getRandomQuote();
-  // textContainer.style.padding = "5px";
-  textContainer.style.margin = "5px";
+  textContainer.style.padding = "10px";
+  textContainer.style.margin = "10px";
   textContainer.style.fontSize = "20px";
-  // textContainer.style.backgroundColor = adElement.style.backgroundColor || "#f3f3f3";
-  const bodyColor = window.getComputedStyle(document.body).color;
-  console.log('bodyColor', bodyColor);
-  textContainer.style.color = bodyColor || "#FFFFFF";
+  textContainer.style.backgroundColor = "#000000";
+  textContainer.style.color = "#FFFFFF";
   textContainer.style.borderRadius = "2px";
   textContainer.style.textAlign = "center";
   return textContainer;

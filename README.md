@@ -1,4 +1,5 @@
 # Ad-Friend - Chrome Extension
+![image](https://github.com/user-attachments/assets/c0981b0d-5843-45bc-be20-30dfd2833d0b)
 
 Ad-Friend is a Chrome extension that replaces online ads with **customized content**, such as motivational quotes, jokes, stress-relief messages, and more. Instead of intrusive advertisements, you can now enjoy **meaningful and engaging content** while browsing the web.
 

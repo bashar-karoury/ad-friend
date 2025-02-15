@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Funnel+Display:wght@300..800&family=Leckerli+One&family=Modak&family=Teko:wght@300..700&family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Leckerli+One&family=Modak&family=Teko:wght@300..700&display=swap');
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background:  rgb(57, 57, 57);
+    color: #ffffff;
+    width: 400px;
+    border: 1px solid #a2a2a2;
+    border-radius: 10px;
+    font-family: 'Zain', sans-serif;
+    height: 550px;
+}
+
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+h1 {
+    font-size: 82px;
+    animation: slideIn 1s ease-in-out;
+    font-family: 'modak', sans-serif; /* Changed font-family */
+    font-weight: 400;
+}
+
+p {
+    font-size: 32px;
+ 
+}
+
+h2 {
+    font-size: 22px
+}
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 20px;
+}
+
+button {
+    /* width: 100%; */
+    display: block;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+button:hover {
+    background-color: #45a049;
+}

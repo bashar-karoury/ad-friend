@@ -1,4 +1,7 @@
 let resources = {};
+let userSettings = {
+  "category": "default"
+}
 async function fetchResources() {
   const url = chrome.runtime.getURL("resources.json");
 
@@ -11,6 +14,20 @@ async function fetchResources() {
   }
 }
 
+
+function getUserSettings() {
+  chrome.storage.sync.get(['userSettings']).then(result => {
+
+    console.log('userSetting stored', result);
+    if (result.userSettings) {
+      Object.keys(result.userSettings).forEach(key => {
+        userSettings[key] = result.userSettings[key];
+      });
+    }
+  })
+
+}
+getUserSettings();
 
 function replaceAds() {
   const adSelectors = [
@@ -39,15 +56,19 @@ function replaceAds() {
   console.log('after filtering');
   print_ads(ads);
 
+  // get user category selection from 
 
   ads.forEach(ad => {
 
     const replacement = contentGenerator(ad);
-    ad.style.display = 'flex';
-    ad.style.alignItems = 'center';
-    ad.style.justifyContent = 'center';
-    ad.innerHTML = '';
-    ad.appendChild(replacement);
+    if (replacement) {
+
+      ad.style.display = 'flex';
+      ad.style.alignItems = 'center';
+      ad.style.justifyContent = 'center';
+      ad.innerHTML = '';
+      ad.appendChild(replacement);
+    }
   });
 }
 
@@ -75,10 +96,6 @@ function print_ads(ads) {
 
 // Function to generate content dynamically
 function contentGenerator(adElement) {
-  // const { width, height } = adElement.getBoundingClientRect();
-  // const width = adElement.clientWidth;
-  // const height = adElement.clientHeight;
-
   return generateText(adElement);
 }
 
@@ -86,8 +103,11 @@ function contentGenerator(adElement) {
 
 // Function to replace an ad with text
 function generateText(adElement) {
+  const text = getRandomText();
+  if (!text)
+    return
   const textContainer = document.createElement("div");
-  textContainer.innerText = getRandomText();
+  textContainer.innerText = text;
   textContainer.style.padding = "10px";
   textContainer.style.margin = "30px";
   textContainer.style.fontSize = "28px";
@@ -108,10 +128,10 @@ function generateText(adElement) {
 
 // Function to get a random motivational quote (dummy function for now)
 function getRandomText() {
-  const quotes = resources['motivational'];
-  console.log(quotes);
-  return quotes[Math.floor(Math.random() * quotes.length)];
-  // return 'Ya Haja';
+  const quotes = resources[userSettings.category];
+  if (quotes) {
+    return quotes[Math.floor(Math.random() * quotes.length)];
+  }
 }
 
 // Monitor dynamically loaded ads

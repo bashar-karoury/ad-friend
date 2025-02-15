@@ -1,7 +1,8 @@
-const optionsList = ['default', 'sports', 'motivational', 'spirits', 'facts'];
+const optionsList = ["default", "motivational", "jokes", "spirits", "Stress-Relief", "Riddles"];
+
+
 let selectedValue;
 const selectElement = document.getElementById('options');
-
 let storedSelectedChoice = '';
 chrome.storage.sync.get(['userSettings']).then(result => {
     if (result.userSettings) {

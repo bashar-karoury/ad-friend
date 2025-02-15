@@ -35,5 +35,16 @@
         "resourceTypes": ["script", "image", "sub_frame"]
       }
     }
+    ,
+    {
+      "id": 5,
+      "priority": 1,
+      "action": { "type": "block" },
+      "condition": {
+        "urlFilter": "*://*.adnxs.comadnxs.com/*",
+        "resourceTypes": ["script", "image", "sub_frame"]
+      }
+    }
+    
   ]
   

@@ -36,13 +36,13 @@ function replaceAds() {
     "div[class*=' ad ']",
     "div[class$='-ad']",
     "div[class*='-ad-']",
-    // "div[class^='ad']",
     "div[class$=' ad']",
     "div[class$=' ad ']",
     "ins.adsbygoogle",
     "ins",
     "section[data-name*='advertisement']",
-    "[data-ad-placeholder]"
+    "[data-ad-placeholder]",
+    "div[data-content='Advertisement']"
   ];
 
   let ads = [];
